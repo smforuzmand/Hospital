@@ -2,7 +2,6 @@ package dao.implementations;
 
 import dao.PatientDao;
 import model.Patient;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,7 +9,12 @@ import java.util.List;
 
 public class PatientDaoImpl implements PatientDao {
 
-    List<Patient> patientList;
+    private List<Patient> patientList;
+
+    public PatientDaoImpl(){
+        patientList = new ArrayList<>();
+    }
+
 
     @Override
     public Patient create(Patient patient) {
@@ -63,5 +67,12 @@ public class PatientDaoImpl implements PatientDao {
         }
     }
         return patientList;
+    }
+
+    @Override
+    public String toString() {
+        return "PatientDaoImpl{" +
+                "patientList=" + patientList +
+                '}';
     }
 }
