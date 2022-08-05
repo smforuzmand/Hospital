@@ -17,6 +17,9 @@ public class Booking {
     private Premises premises;
     private Patient patient;
 
+    public Booking() {
+    }
+
     public Booking(String id, LocalDate dateTime, double price, String administrator,
                    String vaccineType, boolean vacant, Premises premises, Patient patient) {
         setId(id);
@@ -41,6 +44,9 @@ public class Booking {
         if (premises == null)
             throw new RuntimeException("premise is not allowed to be null");
         this.premises = premises;
+
+
+
     }
 
     public Patient getPatient() {

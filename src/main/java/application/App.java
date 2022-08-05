@@ -2,8 +2,10 @@ package application;
 
 import dao.PatientDao;
 import dao.implementations.PatientDaoImpl;
+import model.Booking;
 import model.ContactInfo;
 import model.Patient;
+import model.Premises;
 
 import java.time.LocalDate;
 
@@ -20,6 +22,10 @@ public class App {
         int size = patientDao1.findAll().size();
         System.out.println(size);
         System.out.println(patientDao1.findById("111"));
+        Booking bookingTest = new Booking("123", LocalDate.parse("2022-08-05"),
+                2300.5,"Josepe","Covid-19",true,null,null);
+
+
 
 
 
