@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -7,7 +8,7 @@ import java.util.UUID;
 public class Booking {
 
     private String id;
-    private LocalDateTime dateTime;
+    private LocalDate dateTime;
     private double price;
     private String administrator;
     private String vaccineType;
@@ -16,10 +17,10 @@ public class Booking {
     private Premises premises;
     private Patient patient;
 
-    public Booking(String id, LocalDateTime dateTime, double price, String administrator,
+    public Booking(String id, LocalDate dateTime, double price, String administrator,
                    String vaccineType, boolean vacant, Premises premises, Patient patient) {
         setId(id);
-        setDateTime(dateTime);
+        setDate(dateTime);
         setPatient(patient);
         setPremises(premises);
         this.price = price;
@@ -57,14 +58,14 @@ public class Booking {
         this.id = UUID.randomUUID().toString();
     }
 
-    public LocalDateTime getDateTime() {
+    public LocalDate getDate() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        if (dateTime == null || dateTime.isBefore(LocalDateTime.now()))
+    public void setDate(LocalDate date) {
+        if (date == null || date.isBefore(LocalDate.now()))
             throw new RuntimeException("the date is not a valid type");
-        this.dateTime = dateTime;
+        this.dateTime = date;
     }
 
     public double getPrice() {
