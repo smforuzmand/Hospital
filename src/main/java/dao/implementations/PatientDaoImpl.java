@@ -63,7 +63,7 @@ public class PatientDaoImpl implements PatientDao {
         Collection<Patient> patientCollection = new ArrayList<Patient>();
         for (Patient patient : patientList) {
             if (patient.getBirthDate().isBefore(localDate)){
-                patientList.add(patient);
+                patientCollection.add(patient);
         }
     }
         return patientList;
