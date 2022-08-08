@@ -1,7 +1,6 @@
 package model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -44,7 +43,6 @@ public class Booking {
         if (premises == null)
             throw new RuntimeException("premise is not allowed to be null");
         this.premises = premises;
-
 
 
     }

@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.time.LocalDate;
 
@@ -14,46 +15,21 @@ class BookingTest {
             new Premises("4212","RonnebyRegion","Kungsgäten",null),null);*/
 
     @Test
-    @DisplayName("Contact information must be a valid field :")
-    void setPremisesTest() {
-   Booking bookingTest=new Booking();
-   bookingTest.setPremises(null);
-   Assertions.assertNull(bookingTest.getPremises(),"premise is not allowed to be null");
+    @DisplayName("premise is not allowed to be null")
+    void setPremises_Null_throws_RuntimeException() {
 
+        assertThrows(RuntimeException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                Booking bookingTest = new Booking("123", LocalDate.now().plusDays(2),
+                        2300.5, "Josepe", "Covid-19", true, null, null);
 
+            }
+        });
 
 
     }
 
-    @org.junit.jupiter.api.Test
-    void setPatient() {
-    }
 
-    @org.junit.jupiter.api.Test
-    void setId() {
-    }
 
-    @org.junit.jupiter.api.Test
-    void setDate() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void setPrice() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void setAdministrator() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void setVaccineType() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void isVacant() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void setVacant() {
-    }
 }
