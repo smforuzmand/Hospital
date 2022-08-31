@@ -6,6 +6,7 @@ import model.ContactInfo;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public class ContactInfoDaoImpl implements ContactInfoDao {
 
@@ -29,6 +30,11 @@ public class ContactInfoDaoImpl implements ContactInfoDao {
     @Override
     public Collection<ContactInfo> findAll() {
         return contactInfoList;
+    }
+
+    @Override
+    public Optional<ContactInfo> findByID(String s) {
+        return Optional.empty();
     }
 
     @Override

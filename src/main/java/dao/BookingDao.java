@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-public interface BookingDao {
+public interface BookingDao extends GenericDaoCRUDOperations {
     Booking create(Booking booking);
 
     Collection<Booking> findAll();

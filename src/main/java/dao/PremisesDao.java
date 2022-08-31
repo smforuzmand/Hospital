@@ -4,7 +4,7 @@ import model.Premises;
 
 import java.util.Collection;
 
-public interface PremisesDao {
+public interface PremisesDao extends GenericDaoCRUDOperations {
     Premises create(Premises premises);
 
     Collection<Premises> findAll();
