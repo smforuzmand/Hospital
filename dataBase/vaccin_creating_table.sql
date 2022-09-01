@@ -65,3 +65,5 @@ VALUES ('info2', 'info@testcenter.se', '0987654321', 'lillgatan 25 123 45 Varsta
 INSERT INTO contact_info (id, email, phone, address)
 VALUES ('info3', 'info@notestcenter.se', '1597534826', 'Tvärgatan 48 159 26 Därstad');
 
+INSERT INTO  patient (id, ssn, first_name, last_name, birth_date, fk_contact_info)
+VALUES('PERSON1','1212','sIMON','ELBRINK',1993-03-18,'Z');

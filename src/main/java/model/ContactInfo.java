@@ -6,12 +6,15 @@ public class ContactInfo {
     private String id;
     private String email;
     private String phone;
+    private String address;
 
 
-    public ContactInfo(String id, String email, String phone) {
+    public ContactInfo(String id, String email, String phone, String address) {
         this.id = id;
         setEmail(email);
         setPhone(phone);
+        this.address = address;
+
 
     }
 

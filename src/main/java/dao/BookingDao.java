@@ -6,24 +6,17 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-public interface BookingDao extends GenericDaoCRUDOperations {
-    Booking create(Booking booking);
-
-    Collection<Booking> findAll();
+public interface BookingDao extends GenericDaoCRUDOperations<Booking , String> {
 
     Booking findById(String id);
 
-    boolean delete(String id);
+    Collection<Booking> findBookingByDateBetween(LocalDate start, LocalDate end);
 
-    Collection<Booking> findBookingByDateBetween(LocalDate date1, LocalDate date2);
 
-  //  Collection<Booking> findBookingByDateBetween(LocalDateTime date1, LocalDateTime date2);
+    Collection<Booking> findBookingByDateAfter(LocalDate start);
 
-    Collection<Booking> findBookingByDateAfter(LocalDate localDate);
 
-//    Collection<Booking> findBookingByDateAfter(LocalDateTime localDate);
-
-    Collection<Booking> findBookingByDateBefore(LocalDate localDate);
+    Collection<Booking> findBookingByDateBefore(LocalDate end);
 
     Collection<Booking> findBookingByPatientId(String id);
 

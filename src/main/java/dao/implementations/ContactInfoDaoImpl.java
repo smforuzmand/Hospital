@@ -4,7 +4,6 @@ import dao.ContactInfoDao;
 import model.ContactInfo;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +27,7 @@ public class ContactInfoDaoImpl implements ContactInfoDao {
 
 
     @Override
-    public Collection<ContactInfo> findAll() {
+    public List<ContactInfo> findAll() {
         return contactInfoList;
     }
 
@@ -38,7 +37,7 @@ public class ContactInfoDaoImpl implements ContactInfoDao {
     }
 
     @Override
-    public ContactInfo findById(String id) {
+    public Optional<ContactInfo> findById(String id) {
         for (ContactInfo info : contactInfoList){
             if (info.getId().equals(id)) {
                 return info;
@@ -54,10 +53,10 @@ public class ContactInfoDaoImpl implements ContactInfoDao {
     }
 
     @Override
-    public ContactInfo findByEmail(String fEmail) {
+    public Optional<ContactInfo> findByEmail(String fEmail) {
         for (ContactInfo info : contactInfoList){
             if (info.getEmail().equals(fEmail)) {
-                return info;
+                return Optional.of(info);
             }
         }
 

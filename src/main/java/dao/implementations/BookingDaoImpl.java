@@ -4,11 +4,10 @@ import dao.BookingDao;
 import model.Booking;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
+import java.util.Optional;
 
 
 public class BookingDaoImpl implements BookingDao {
@@ -29,8 +28,13 @@ public class BookingDaoImpl implements BookingDao {
     }
 
     @Override
-    public Collection<Booking> findAll() {
+    public List<Booking> findAll() {
         return bookingList;
+    }
+
+    @Override
+    public Optional<Booking> findByID(String s) {
+        return Optional.empty();
     }
 
     @Override
@@ -50,12 +54,12 @@ public class BookingDaoImpl implements BookingDao {
     }
 
     @Override
-    public Collection<Booking> findBookingByDateBetween(LocalDate date1, LocalDate date2) {
+    public Collection<Booking> findBookingByDateBetween(LocalDate start, LocalDate end) {
 
         Collection<Booking> bookingCollection = new ArrayList<>();
         for (Booking booking : bookingList) {
-            if (booking.getDate().isBefore(date2) && booking
-                    .getDate().isAfter(date1)) {
+            if (booking.getDate().isBefore(end) && booking
+                    .getDate().isAfter(start)) {
                 bookingCollection.add(booking);
             }
         }
@@ -65,11 +69,11 @@ public class BookingDaoImpl implements BookingDao {
     }
 
     @Override
-    public Collection<Booking> findBookingByDateAfter(LocalDate localDate) {
+    public Collection<Booking> findBookingByDateAfter(LocalDate start) {
 
         Collection<Booking> bookingCollection = new ArrayList<>();
         for (Booking booking : bookingList){
-            if (booking.getDate().isAfter(localDate)){
+            if (booking.getDate().isAfter(start)){
                 bookingCollection.add(booking);
             }
         }
@@ -79,10 +83,10 @@ public class BookingDaoImpl implements BookingDao {
     }
 
     @Override
-    public Collection<Booking> findBookingByDateBefore(LocalDate localDate) {
+    public Collection<Booking> findBookingByDateBefore(LocalDate end) {
         Collection<Booking> bookingCollection = new ArrayList<>();
         for (Booking booking : bookingList){
-            if (booking.getDate().isBefore(localDate)){
+            if (booking.getDate().isBefore(end)){
                 bookingCollection.add(booking);
             }
         }

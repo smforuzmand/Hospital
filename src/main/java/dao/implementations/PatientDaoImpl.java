@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public class PatientDaoImpl implements PatientDao {
 
@@ -27,9 +28,14 @@ public class PatientDaoImpl implements PatientDao {
     }
 
     @Override
-    public Collection<Patient> findAll() {
+    public List<Patient> findAll() {
 
         return patientList;
+    }
+
+    @Override
+    public Optional<Patient> findByID(String s) {
+        return Optional.empty();
     }
 
     @Override

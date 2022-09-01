@@ -6,6 +6,7 @@ import model.Premises;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public class PremisesDaoImpl implements PremisesDao {
 
@@ -23,8 +24,13 @@ public class PremisesDaoImpl implements PremisesDao {
     }
 
     @Override
-    public Collection<Premises> findAll() {
+    public List<Premises> findAll() {
         return premisesList;
+    }
+
+    @Override
+    public Optional<Premises> findByID(String s) {
+        return Optional.empty();
     }
 
     @Override

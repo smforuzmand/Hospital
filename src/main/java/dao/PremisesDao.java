@@ -4,14 +4,8 @@ import model.Premises;
 
 import java.util.Collection;
 
-public interface PremisesDao extends GenericDaoCRUDOperations {
-    Premises create(Premises premises);
-
-    Collection<Premises> findAll();
-
+public interface PremisesDao extends GenericDaoCRUDOperations<Premises, String> {
     Premises findById(String id);
-
-    boolean delete(String id);
 
     Collection<Premises> findPremisesByName(String name);
 
