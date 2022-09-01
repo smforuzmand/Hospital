@@ -67,4 +67,8 @@ public class ContactInfo {
                 ", phone='" + phone + '\'' +
                 '}';
     }
+
+    public String getAddress() {
+        return address;
+    }
 }

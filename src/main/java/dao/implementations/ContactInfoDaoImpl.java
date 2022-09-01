@@ -40,7 +40,7 @@ public class ContactInfoDaoImpl implements ContactInfoDao {
     public Optional<ContactInfo> findById(String id) {
         for (ContactInfo info : contactInfoList){
             if (info.getId().equals(id)) {
-                return info;
+                return Optional.of(info);
             }
         }
 

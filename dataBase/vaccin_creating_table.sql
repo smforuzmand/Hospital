@@ -2,6 +2,8 @@ drop table if exists booking;
 drop table if exists patient;
 drop table if exists premises;
 drop table if exists contact_info;
+drop table if exists test_table;
+
 create table if not exists contact_info
 (
     id varchar(255) not null
@@ -21,6 +23,14 @@ create table if not exists premises
 );
 create index fk_premises_contact_info1_idx
     on premises (fk_contact_info);
+
+create table test_table
+(
+    id          int auto_increment primary key,
+    description varchar(255) not null,
+    number      int          not null
+);
+
 create table if not exists patient
 (
     id varchar(255) not null

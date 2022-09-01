@@ -11,7 +11,7 @@ public class DataBaseCredential {
     // the purpose of this class is to read our properties file;
 
 
-    private String URL;
+    private String url;
     private String userName;
     private String password;
 
@@ -24,20 +24,22 @@ public class DataBaseCredential {
     public static DataBaseCredential instance;
 
     public static DataBaseCredential getInstance() {
+        if(instance==null) throw new IllegalArgumentException("please provide the initializer");
         return instance;
     }
 
     // Once we call the initializer . it assists us to create an instance for that class , here is access to credential information
     public static void Initializer(String url) {
 
-        instance = new DataBaseCredential(Paths.get(url));
+        instance = new DataBaseCredential();
+        instance.loadProperties(Paths.get(url));
 
 
     }
 
 
-    private DataBaseCredential(Path path) {
 
+    private void loadProperties(Path path){
         Properties properties = new Properties();
         //we need to call a method for this object to load the information from our file, and also we need t define path
         try {
@@ -46,7 +48,7 @@ public class DataBaseCredential {
 
             userName = properties.getProperty("username");
             password = properties.getProperty("password");
-            URL = properties.getProperty("url");
+            url = properties.getProperty("url");
 
 
         } catch (IOException e) {
@@ -56,10 +58,14 @@ public class DataBaseCredential {
         //before using the singleton and getinstance method to call the information
         // System.out.println(userName + password + URL);
 
+
     }
 
-    public String getURL() {
-        return URL;
+    private DataBaseCredential() {
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public String getUserName() {
@@ -73,7 +79,7 @@ public class DataBaseCredential {
     @Override
     public String toString() {
         return "DataBaseCredential{" +
-                "URL='" + URL + '\'' +
+                "URL='" + url + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 '}';

@@ -8,25 +8,42 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ContactInfoDaoJdbcImpl implements ContactInfoDao {
+public class ContactInfoDaoJdbcImpl extends AbstractDAO implements ContactInfoDao {
+
+    // first of we have created the get connection in the implementation methods but after a while we concluded that it is better to extract it as a seprate method
+    //here in the class named getConnection() but now we are going to move it to another class consider it as a Util but how?
+    //we highlight the method then right click then choose extract superclass afterward select those methods that you are willing to shift them all into seprate class
 
 
-    private static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(DataBaseCredential.getInstance().getURL(),
-                DataBaseCredential.getInstance().getUserName(),
-                DataBaseCredential.instance.getPassword());
+    @Override
+    public ContactInfo create(ContactInfo contactInfo) {
+
+
+        int rowsAffected = Integer.MIN_VALUE;
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO contact_info (id, email, phone, address) VALUES (?, ? ,?, ?)");
+
+
+            preparedStatement.setString(1, contactInfo.getId());
+            preparedStatement.setString(2, contactInfo.getEmail());
+            preparedStatement.setString(3, contactInfo.getPhone());
+            preparedStatement.setString(4, contactInfo.getAddress());
+            rowsAffected = preparedStatement.executeUpdate();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (rowsAffected == 1) {
+            return contactInfo;
+        } else
+            return null;
+
+
     }
 
-
-    public static ContactInfo mapToContactInfo(ResultSet resultSet) throws SQLException {
-
-        return new ContactInfo(resultSet.getString("id"),
-                resultSet.getString("email"),
-                resultSet.getString("phone"),
-                resultSet.getString("address"));
-
-
-    }
 
     @Override
     public Optional<ContactInfo> findById(String id) {
@@ -37,19 +54,16 @@ public class ContactInfoDaoJdbcImpl implements ContactInfoDao {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM contact_info WHERE id = ?");
 
             preparedStatement.setString(1, id);
-            ResultSet resultSet=preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
 
                 found = Optional.of(mapToContactInfo(resultSet));
-                
-            }
 
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
         return found;
     }
 
@@ -59,48 +73,62 @@ public class ContactInfoDaoJdbcImpl implements ContactInfoDao {
     }
 
     @Override
-    public ContactInfo create(ContactInfo contactInfo) {
-        return null;
-    }
-
-    @Override
     public List<ContactInfo> findAll() {
         //now it is time to implement the jdbc through out java , first we need to define a collection to  store the data that we gather through this method.
         //second we need to connect our method to the database how?
         //third we gonna answer to that 'HOW' by something we have implemented through singleton
-//forth we are going to do Prepared Statement
+        //forth we are going to do Prepared Statement
         //fifth then we need to store the results of our query in a Resultset
-//sixth the we are going to run a method(While) to grab the information
+        //sixth they are going to run a method(While) to grab the information
         List<ContactInfo> infoList = new ArrayList<>();
 
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
         try {
-            Connection connection = DriverManager.getConnection(DataBaseCredential.getInstance().getURL(),
+            connection = getConnection();
+
+                    /*DriverManager.getConnection(DataBaseCredential.getInstance().getUrl(),
                     DataBaseCredential.getInstance().getUserName(),
-                    DataBaseCredential.getInstance().getPassword());
+                    DataBaseCredential.getInstance().getPassword());*/
 
             //In the PreparedStatement we are going to prepare a query through our connection to the sql
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM contact_info");
-            ResultSet resultSet = preparedStatement.executeQuery();
-
+            preparedStatement = connection.prepareStatement("SELECT * FROM contact_info");
+            resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 //we are going to run a repetitive task for all rows
                 // we also need to make a method to help us do this method easily in a better way
-                infoList.add(new ContactInfo(resultSet.getString("id"),
-                        resultSet.getString("email"),
-                        resultSet.getString("phone"),
-                        resultSet.getString("address")));
+                infoList.add(mapToContactInfo(resultSet));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            // now we need to close all open sessions of application due to our database considerations;
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                preparedStatement.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
 
 
             }
 
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return infoList;
         }
-
-
-        return infoList;
     }
 
     @Override
